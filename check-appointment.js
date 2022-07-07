@@ -29,6 +29,8 @@ switch(config.location) {
     break;
   case 'toronto':
     locationId = '94';
+  case 'montreal':
+    locationId = '91';
 }
 
 clear();
@@ -45,7 +47,7 @@ const alertBefore = new Date(config.alert_for_appointment_before);
 
 let gSpinner = new CLI.Spinner('Waiting for the next run...');
 
-let checkAvalibility = () => {
+let checkAvailability = () => {
   (async () => {
     gSpinner.stop();
     console.log(chalk.gray('Opening Chrome headless...'));
@@ -62,7 +64,7 @@ let checkAvalibility = () => {
     await page.waitForTimeout(3000);
     await Promise.all([
       page.waitForNavigation(), page.click('input[type=submit]')
-    ]).catch(() => { console.error("Error Occured.") });
+    ]).catch(() => { console.error("Error Occurred.") });
     spinner.stop();
     console.log(chalk.green('Signed in!'));
     console.log(chalk.yellow(`Checking at: ${Date().toLocaleString()}`));
@@ -70,10 +72,10 @@ let checkAvalibility = () => {
     let response = await page.goto(`https://ais.usvisa-info.com/en-ca/niv/schedule/${config.schedule_id}/appointment/days/${locationId}.json?appointments[expedite]=false`);
     let json = await response.json();
     console.log(json.slice(0, 5));
-    let firstDate = Date.parse(json[0].date);
-
-    if(firstDate < alertBefore){
-      console.log(chalk.green('Early appointment avaliable!!!'));
+    if (json.length == 0) {
+      console.log(chalk.red('No appointments!'));
+    } else if(Date.parse(json[0].date) < alertBefore){
+      console.log(chalk.green('Early appointment available!!!'));
       console.log(chalk.white(json[0].date));
       beepbeep(5)
     } else {
@@ -86,8 +88,8 @@ let checkAvalibility = () => {
     next.setTime(next.getTime() + interval);
     console.log(chalk.gray(`Next checking at: ${next.toLocaleString()}`));
     gSpinner.start();
-    setTimeout(checkAvalibility, interval);
+    setTimeout(checkAvailability, interval);
   })();
 }
 
-checkAvalibility();
+checkAvailability();
