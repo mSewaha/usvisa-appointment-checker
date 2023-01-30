@@ -3,6 +3,9 @@
     "alert_for_appointment_before": "2022-12-08",
     "__comment__": "The location should be one of the the following options: vancouver, calgary, ottawa, toronto",
     "location": "vancouver",
-    "username": "usvisa-info username/email",
-    "password": "usvisa-info password"
+    "username": "<usvisa-info username/email>",
+    "password": "<usvisa-info password>",
+    "from_email": "<from-email-address>",
+    "from_password": "<from-password>",
+    "to_email": "<to-email-address>"
 }

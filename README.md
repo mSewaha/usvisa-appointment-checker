@@ -1,8 +1,8 @@
-# US Visa appointment (Canada) checker
+# US Visa appointment checker
 
-The script automates the visa appointment checking.
+A script that automates checking for US visa appointments, and sends an email notifcation when early appointments are available.
 
-Note: This tool can only be used for checking the US visa appointment in US Canada consulates.
+Note: This tool can only be used for checking the US visa appointment in Canada & UK(London only) consulates.
 
 ## Status of the project
 This is not a scalble/maintainable solution since it has been built in a very short time-frame. It is for personal use only!
@@ -23,9 +23,13 @@ The config uses JSON format, so please follow the standard JSON format.
 {
     "schedule_id": "8 digits id", // You can find your schedule id by clicking the green "Continue" button localted on top right of the web page. (You will see it once you successfully logged in.)
     "alert_for_appointment_before": "2022-12-08", // Set a date of your current appointment date. The script will play beep-beep-beep-beep-beep once it finds an early appointment.
-    "location": "vancouver", // The location should be one of the the following options: vancouver, calgary, ottawa, toronto.
+    "location": "vancouver", // The location should be one of the the following options: vancouver, calgary, ottawa, toronto, london.
     "username": "username", // Your usvisa-info username.
-    "password": "password" // Your usvisa-info password.
+    "password": "password", // Your usvisa-info password.
+    "from_email": "<from-email-address>", // Email address to send notifications from. (MUST be a gmail account)  
+    // You'll need to generate and use an app password for "from_password", guide -> https://support.google.com/mail/answer/185833?hl=en-GB
+    "from_password": "<from-password>", // Password of email address used to send notifications from
+    "to_email": "<to-email-address>" // Email address to send notifications to when early appointments are available
 }
 ```
 
